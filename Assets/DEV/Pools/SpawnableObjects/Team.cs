@@ -22,6 +22,7 @@ public class Team : SpawnableObject
     public string Star => star.text;
     public int CurrentCapacity => currentCapacity;
     public int MaxCapacity => maxCapacity;
+    public List<Member> MembersList => membersList;
     #endregion
 
     #region Executes
@@ -36,6 +37,11 @@ public class Team : SpawnableObject
         currentCapacity = currCapacity;
         this.maxCapacity = maxCapacity;
         members.text = currentCapacity + "/" + maxCapacity;
+        
+
+    }
+    public void SetStar()
+    {
         foreach (Member member in membersList)
         {
             totalStar += member.Star;

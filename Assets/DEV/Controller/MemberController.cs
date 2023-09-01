@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MemberController : Controller
@@ -26,10 +27,11 @@ public class MemberController : Controller
             int randomProfile = Random.Range(0, gameplayData.Profiles.Count);
             int randomHour = Random.Range(1, 25);
             Member member = memberPool.GetItem() as Member;
+            member.ObjectCreated();
             team.AddMemberToTeam(member);
             member.SetMemberInfo(gameplayData.Profiles[randomProfile], gameplayData.Flags[randomFlag],
             gameplayData.Profiles[randomProfile].name, randomHour.ToString(), i);
-            member.SetActive();
+            //member.SetActive();
             members.Add(member);
         }
     }
@@ -37,9 +39,17 @@ public class MemberController : Controller
     {
         foreach (Member member in members)
         {
-            Destroy(member.gameObject);
+            member.Dismiss();
         }
         members.Clear();
+    }
+    public void ShowMembers(Team team)
+    {
+        foreach (Member m in team.MembersList)
+        {
+            members.Add(m);
+            m.SetActive();
+        }
     }
     #endregion
 }

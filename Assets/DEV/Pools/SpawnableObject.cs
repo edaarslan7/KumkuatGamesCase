@@ -40,6 +40,10 @@ public class SpawnableObject : MonoBehaviour
         gameObject.SetActive(false);
         transform.SetParent(defaultParent);
     }
+    public virtual void ObjectCreated()
+    {
+        isInUse = true;
+    }
     #endregion
 
 }

@@ -45,6 +45,8 @@ public class TeamController : Controller
             Sprite selectedLogo = gameplayData.Logos[randomLogo];
             Team team = teamPool.GetItem() as Team;
             team.SetTeamInfos(selectedLogo, selectedLogo.name, randomCurrentCapacity, randomMaxCapacity);
+            memberController.CreateMembers(team);
+            team.SetStar();
             team.SetActive();
             teams.Add(team);
             team.GetComponent<Button>().onClick.AddListener(() => isSelected(team));
@@ -57,11 +59,11 @@ public class TeamController : Controller
             if (t == team)
             {
                 SetUIScreens(true);
+                memberController.ShowMembers(team);
                 selectedTeamLogo.sprite = team.Logo;
                 selectedTeamName.text = team.TeamName;
                 selectedTeamStar.text = team.Star;
                 selectedTeamMembers.text = team.CurrentCapacity + "/" + team.MaxCapacity;
-                memberController.CreateMembers(team);
             }
         }
     }
